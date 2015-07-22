@@ -18,3 +18,5 @@ testsuite
 .deps
 
 .optional-deps
+
+*.pyo

@@ -1,0 +1,26 @@
+import os ;
+
+local ANDROID_STANDALONE_TOOLCHAIN = [ os.environ ANDROID_STANDALONE_TOOLCHAIN ] ;
+
+using gcc : android :
+     $(ANDROID_STANDALONE_TOOLCHAIN)/bin/arm-linux-androideabi-g++ :
+      <compileflags>--sysroot=$(ANDROID_STANDALONE_TOOLCHAIN)/sysroot
+      <compileflags>-march=armv7-a
+      <compileflags>-mfloat-abi=softfp
+      <compileflags>-Os
+      <compileflags>-fno-strict-aliasing
+      <compileflags>-O2
+      <compileflags>-DNDEBUG
+      <compileflags>-g
+      <compileflags>-lstdc++
+      <compileflags>-I$(ANDROID_STANDALONE_TOOLCHAIN)/include/c++/4.8/
+      <compileflags>-I$(ANDROID_STANDALONE_TOOLCHAIN)/include/c++/4.8/arm-linux-androideabi/armv7-a
+      <compileflags>-D__GLIBC__
+      <compileflags>-D_GLIBCXX__PTHREADS
+      <compileflags>-D__arm__
+      <compileflags>-D_REENTRANT
+      <compileflags>-L$(ANDROID_STANDALONE_TOOLCHAIN)/lib/gcc/arm-linux-androideabi/4.8/
+      <archiver>$(ANDROID_STANDALONE_TOOLCHAIN)/bin/arm-linux-androideabi-ar
+      <ranlib>$(ANDROID_STANDALONE_TOOLCHAIN)/bin/arm-linux-androideabi-ranlib
+     ;
+

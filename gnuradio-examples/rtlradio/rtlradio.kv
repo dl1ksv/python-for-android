@@ -1,0 +1,21 @@
+#:kivy 1.0.9
+
+<RtlradioWindow>:
+	orientation: 'vertical'
+	
+
+	Label:
+		text: 'Gnuradio rtlsdr example'
+		font_size: 32
+		center_x: root.width / 4
+		top: root.top -50
+		size_hint_y: None
+
+	Button:
+		text: 'Start/Stop Dialtone'
+		size_hint_y: None
+		center_x: root.width / 3
+		top: root.top -200
+		height: '50sp'
+		on_press: app.startstop_audio()
+	

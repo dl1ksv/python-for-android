@@ -1,0 +1,20 @@
+--- gr-osmosdr/CMakeLists.orig.txt	2015-07-19 07:57:04.643619863 +0200
++++ gr-osmosdr/CMakeLists.txt	2015-07-19 07:56:39.398859586 +0200
+@@ -144,7 +144,7 @@
+ set(GR_PKG_CONF_DIR     ${GR_CONF_DIR}/${CMAKE_PROJECT_NAME}/conf.d)
+ set(GR_LIBEXEC_DIR      libexec)
+ set(GR_PKG_LIBEXEC_DIR  ${GR_LIBEXEC_DIR}/${CMAKE_PROJECT_NAME})
+-set(GRC_BLOCKS_DIR      ${GR_PKG_DATA_DIR}/grc/blocks)
++#set(GRC_BLOCKS_DIR      ${GR_PKG_DATA_DIR}/grc/blocks)
+ 
+ ########################################################################
+ # Find build dependencies
+@@ -232,7 +232,7 @@
+ if(ENABLE_PYTHON)
+     add_subdirectory(swig)
+     add_subdirectory(python)
+-    add_subdirectory(grc)
++#    add_subdirectory(grc)
+     add_subdirectory(apps)
+ endif(ENABLE_PYTHON)
+ add_subdirectory(docs)

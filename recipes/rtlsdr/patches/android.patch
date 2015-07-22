@@ -1,0 +1,22 @@
+--- rtl-sdr/src/CMakeLists.orig.txt	2015-07-20 17:43:29.651472878 +0200
++++ rtl-sdr/src/CMakeLists.txt	2015-07-20 17:44:49.545255963 +0200
+@@ -51,8 +51,8 @@
+ target_link_libraries(rtlsdr_shared ${LIBUSB_LIBRARIES})
+ set_target_properties(rtlsdr_shared PROPERTIES DEFINE_SYMBOL "rtlsdr_EXPORTS")
+ set_target_properties(rtlsdr_shared PROPERTIES OUTPUT_NAME rtlsdr)
+-set_target_properties(rtlsdr_shared PROPERTIES SOVERSION ${MAJOR_VERSION})
+-set_target_properties(rtlsdr_shared PROPERTIES VERSION ${LIBVER})
++#set_target_properties(rtlsdr_shared PROPERTIES SOVERSION ${MAJOR_VERSION})
++#set_target_properties(rtlsdr_shared PROPERTIES VERSION ${LIBVER})
+ 
+ ########################################################################
+ # Setup static library variant
+@@ -128,7 +128,7 @@
+ if(APPLE)
+     target_link_libraries(rtl_test m)
+ else()
+-    target_link_libraries(rtl_test m rt)
++    target_link_libraries(rtl_test m)
+ endif()
+ endif()
+ 

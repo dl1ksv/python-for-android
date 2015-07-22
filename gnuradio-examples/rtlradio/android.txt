@@ -1,0 +1,3 @@
+title=Rtlradio
+author=DL1KSV
+orientation=portrait

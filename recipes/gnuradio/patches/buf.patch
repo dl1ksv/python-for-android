@@ -1,0 +1,69 @@
+--- gnuradio/gnuradio-runtime/lib/vmcircbuf_mmap_tmpfile.orig.cc	2015-07-21 16:58:24.979593603 +0200
++++ gnuradio/gnuradio-runtime/lib/vmcircbuf_mmap_tmpfile.cc	2015-07-21 17:14:09.968660278 +0200
+@@ -43,6 +43,8 @@
+ #include <gnuradio/sys_paths.h>
+ #include <gnuradio/logger.h>
+ 
++#include <libgen.h>
++
+ namespace gr {
+ 
+   vmcircbuf_mmap_tmpfile::vmcircbuf_mmap_tmpfile (int size)
+@@ -67,7 +69,7 @@
+     // open a temporary file that we'll map in a bit later
+     while(1) {
+       snprintf(seg_name, sizeof(seg_name),
+-               "%s/gnuradio-%d-%d-XXXXXX", gr::tmp_path(), getpid(), s_seg_counter);
++               "%s/gnuradio-%d-XXXXXX", gr::tmp_path(),  s_seg_counter);
+       s_seg_counter++;
+ 
+ #ifndef ANDROID
+@@ -79,8 +81,8 @@
+       GR_INFO("gr_log", boost::format("gr::mvcircbuf_mmap_tmpfile: opened: %1%") % seg_fd);
+ 
+       if(seg_fd == -1) {
+-        if(errno == EEXIST) // File already exists (shouldn't happen).  Try again
+-          continue;
++//        if(errno == EEXIST) // File already exists (shouldn't happen).  Try again
++//          continue;
+ 
+         char msg[1024];
+         snprintf(msg, sizeof (msg),
+@@ -92,10 +94,10 @@
+       break;
+     }
+ 
+-    if(unlink (seg_name) == -1) {
+-      GR_ERROR("gr_log", boost::format("gr::vmcircbuf_mmap_tmpfile: unlink, errno: %1%") % (strerror(errno)));
+-      throw std::runtime_error ("gr::vmcircbuf_mmap_tmpfile");
+-    }
++//    if(unlink (seg_name) == -1) {
++//      GR_ERROR("gr_log", boost::format("gr::vmcircbuf_mmap_tmpfile: unlink, errno: %1%") % (strerror(errno)));
++//      throw std::runtime_error ("gr::vmcircbuf_mmap_tmpfile");
++//    }
+ 
+     // We've got a valid file descriptor to a tmp file.
+     // Now set it's length to 2x what we really want and mmap it in.
+--- gnuradio/gnuradio-runtime/lib/sys_paths.orig.cc	2015-07-21 21:33:07.697644727 +0200
++++ gnuradio/gnuradio-runtime/lib/sys_paths.cc	2015-07-21 17:13:53.532746627 +0200
+@@ -22,6 +22,8 @@
+ #include <gnuradio/sys_paths.h>
+ #include <cstdlib> //getenv
+ #include <cstdio>  //P_tmpdir (maybe)
++#include <libgen.h>
++#include <strings.h>
+ 
+ namespace gr {
+ 
+@@ -30,7 +32,11 @@
+     const char *path;
+ 
+     //first case, try TMP environment variable
++#ifdef ANDROID
++    path=strcat(dirname(getenv("ANDROID_APP_PATH")),"/cache");
++#else    
+     path = getenv("TMP");
++#endif    
+     if(path)
+       return path;
+ 

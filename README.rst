@@ -9,7 +9,8 @@ your application.
 - Forum: https://groups.google.com/forum/?hl=fr#!forum/python-android
 - Mailing list: python-android@googlegroups.com
 
-
+The gnuradio branch contains recipes to build gnuradio applications for android.
+You can build Android packages from python 
 Global overview
 ---------------
 

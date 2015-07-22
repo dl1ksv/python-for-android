@@ -1,0 +1,3 @@
+title=Dialtone
+author=DL1KSV
+orientation=portrait

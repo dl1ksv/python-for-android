@@ -1,0 +1,46 @@
+--- gnuradio/cmake/Modules/GrMiscUtils.orig.cmake	2015-07-06 22:23:37.480018801 +0200
++++ gnuradio/cmake/Modules/GrMiscUtils.cmake	2015-07-07 07:08:05.051014202 +0200
+@@ -47,8 +47,8 @@
+ #  - def the pre-processor definition to set
+ ########################################################################
+ function(GR_CHECK_HDR_N_DEF hdr def)
+-    include(CheckIncludeFile)
+-    CHECK_INCLUDE_FILE(${hdr} ${def})
++    include(CheckIncludeFileCXX)
++    CHECK_INCLUDE_FILE_CXX(${hdr} ${def})
+     GR_ADD_COND_DEF(${def})
+ endfunction(GR_CHECK_HDR_N_DEF)
+ 
+@@ -140,7 +140,7 @@
+     CMAKE_PARSE_ARGUMENTS(GR_LIBRARY "" "RUNTIME_COMPONENT;DEVEL_COMPONENT" "" ${ARGN})
+ 
+     #set additional target properties
+-    set_target_properties(${target} PROPERTIES SOVERSION ${LIBVER})
++    #    set_target_properties(${target} PROPERTIES SOVERSION ${LIBVER})
+ 
+     #install the generated files like so...
+     install(TARGETS ${target}
+@@ -150,9 +150,9 @@
+     )
+ 
+     #extras mode enabled automatically on linux
+-    if(NOT DEFINED LIBRARY_EXTRAS)
+-        set(LIBRARY_EXTRAS ${LINUX})
+-    endif()
++    #if(NOT DEFINED LIBRARY_EXTRAS)
++    #    set(LIBRARY_EXTRAS ${LINUX})
++    #endif()
+ 
+     #special extras mode to enable alternative naming conventions
+     if(LIBRARY_EXTRAS)
+@@ -161,8 +161,8 @@
+         GR_LIBTOOL(TARGET ${target} DESTINATION ${GR_LIBRARY_DIR})
+ 
+         #give the library a special name with ultra-zero soversion
+-        set_target_properties(${target} PROPERTIES OUTPUT_NAME ${target}-${LIBVER} SOVERSION "0.0.0")
+-        set(target_name lib${target}-${LIBVER}.so.0.0.0)
++	set_target_properties(${target} PROPERTIES OUTPUT_NAME ${target}-${LIBVER} SOVERSION "0.0.0")
++	set(target_name lib${target}-${LIBVER}.so.0.0.0)
+ 
+         #custom command to generate symlinks
+         add_custom_command(
