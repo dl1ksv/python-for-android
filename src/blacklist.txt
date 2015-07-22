@@ -96,4 +96,4 @@ sqlite3/*
 lib-dynload/_sqlite3.so
 #<sqlite3
 
-numpy/distutils
+numpy/distutils/*
